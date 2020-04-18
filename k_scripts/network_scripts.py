@@ -33,8 +33,6 @@ def create_sample_network(sampler, sampler_params, n):
     return create_network(C)
 
 
-
-
 def build_MST(g):
     '''
         Create maximum spanning tree by given graph
