@@ -15,12 +15,11 @@ def create_network(W):
     return g
 
 
-def create_sample_network(sampler, sampler_params, n):
+def create_sample_network(sampler, sampler_params):
     '''
         Create sample network from given distribution
         sampler: callable generator like np.random.multivariate_normal
-        sampler_params: params to run sampler with (like mean and covariation matrix)
-        n: number of samples
+        sampler_params: params to run sampler with (like mean and covariation matrix), including number of samples
 
         Example:
         a = [0]*N
@@ -28,7 +27,7 @@ def create_sample_network(sampler, sampler_params, n):
         n_sample = np.random.multivariate_normal(mean=a, cov=Cov, size = 10)
     '''
 
-    n_sample = sampler(*sampler_params, size=n)
+    n_sample = sampler(*sampler_params)
     C = np.corrcoef(n_sample.T)
     return create_network(C)
 

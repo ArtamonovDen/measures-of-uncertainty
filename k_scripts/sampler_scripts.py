@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def multivariate_t(means, df, C, n):
+def multivariate_t(means, C, df, n):
     '''
         Generate random vector of Student distribution
 
@@ -13,7 +13,7 @@ def multivariate_t(means, df, C, n):
          with 
          v: degrees of freedom
          mu: vector with means
-         Sigma: covariance? matrix
+         Sigma: covariance matrix
 
     '''
 
@@ -42,8 +42,7 @@ def mixed_t_normal(means, C, df, n, t_ratio = 0.3):
     n_normal = n - n_student
 
     N = C.shape[0] # the num of stocks
-    means = [0] * N # TODO точно 0 ?
-    x_normal = np.random.multivariate_normal([0] * N, C, n_normal)
+    x_normal = np.random.multivariate_normal(means, C, n_normal)
     x_student = multivariate_t(means, df, C, n_student)
 
     return np.concatenate([x_normal, x_student])
