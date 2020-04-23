@@ -2,19 +2,6 @@ import numpy as np
 from networkx.algorithms.operators import difference
 import k_scripts.network_scripts as ns
 
-def E_measure():
-    '''
-        Compute E-measure of uncertainty        
-    '''
-    pass
-
-def R_measure():
-    '''
-        Compute R-measure of unertainty 
-    '''
-    pass
-
-
 def error_type_I(ref_struct, sample_struct):
     '''
         Compute the first type error: the number of wrongly included edges
@@ -36,14 +23,26 @@ def error_type_II(ref_struct, sample_struct):
     '''
     return difference(ref_struct, sample_struct).number_of_edges() # Edges presented in ref_struct but not presented in sample_struct
 
-
-def E_measure_MST(ref_network, sample_network):
+def E_measure_MST(reference_network, sampler, sampler_params):
     '''
-        Uncertainty measuring of MST filtering structure.
+        Calculate E_measure for MST as E[X]
         For MST E_measure = R_measure, and # of errors of both types are equals.
-        So measure for MST is just E_measure = E(X) = 1/(N-1)*error_type_I
+        So measure for MST is just E_measure = E[X] = E[1/(N-1)*error_type_I]
+    '''
 
-        Return: the value of statistical uncertainty for MST for given n
+    Xs = list()
+    for i in range(1000): # Calculate E[X] as mean of different Xs
+        sample_network = ns.create_sample_network(sampler, sampler_params)    
+        Xs.append(
+            X_error_rate_MST(reference_network,sample_network)
+            )
+    return np.mean(Xs)
+
+
+def X_error_rate_MST(ref_network, sample_network):
+    '''
+        Calculate X random variable X where E-measure is E[X].
+        For MST X = 1/(N-1)*error_type_I
     '''
     
     ref_mst = ns.build_MST(ref_network)
