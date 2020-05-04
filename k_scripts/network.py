@@ -35,7 +35,28 @@ def create_sample_network(sampler, sampler_params):
 def build_MST(g):
     '''
         Create maximum spanning tree by given graph
-        g: Undirected raph
+        g: Undirected graph
     '''
     return nx.algorithms.tree.mst.maximum_spanning_tree(g)
-    
+
+
+def build_MG(g,threshold):
+    '''
+        Create Market graph from given graph
+        by removing edges having weight less than specified threshold.
+        Note: returned graph is Frozen
+
+        g: Undirected graph
+        threshold: real number from 0 to 1
+    '''
+    return g.edge_subgraph( [ (u,v) for u,v,d in g.edges(data=True) if d['weight']>threshold])
+
+
+def build_MC():
+    pass
+
+def build_MIS():
+    '''
+    '''
+    nx.algorithms.maximal_independent_set(g)  
+    #https://networkx.github.io/documentation/networkx-2.1/_modules/networkx/algorithms/approximation/independent_set.html  

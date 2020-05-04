@@ -2,8 +2,8 @@ import json
 from tqdm import tqdm
 import time
 import numpy as np
-import k_scripts.network_scripts as ns
-import k_scripts.measures_scripts as ms
+import k_scripts.network as ns
+import k_scripts.measures as ms
 
 
 

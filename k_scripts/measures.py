@@ -1,6 +1,6 @@
 import numpy as np
 from networkx.algorithms.operators import difference
-import k_scripts.network_scripts as ns
+import k_scripts.network as ns
 
 def error_type_I(ref_struct, sample_struct):
     '''
