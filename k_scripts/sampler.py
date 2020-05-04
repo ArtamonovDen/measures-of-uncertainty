@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def multivariate_t(means, C, df, n):
+def multivariate_t(means, Sigma, df, n):
     '''
         Generate random vector of Student distribution
 
@@ -13,14 +13,16 @@ def multivariate_t(means, C, df, n):
          with 
          v: degrees of freedom
          mu: vector with means
-         Sigma: covariance matrix
+         Sigma: matrix
+
+         Note: the result's covariance matrix is [df/(df-2)]xSigma 
 
     '''
 
     u = np.random.chisquare(df, n)
     u = np.tile(u.reshape(n,1), len(means)) # some broadcast
     
-    y = np.random.multivariate_normal(np.zeros(len(means)), C, n)
+    y = np.random.multivariate_normal(np.zeros(len(means)), Sigma, n)
     return y / np.sqrt(u/df) + means
 
 

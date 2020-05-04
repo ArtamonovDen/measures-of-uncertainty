@@ -43,20 +43,22 @@ def build_MST(g):
 def build_MG(g,threshold):
     '''
         Create Market graph from given graph
-        by removing edges having weight less than specified threshold.
-        Note: returned graph is Frozen
+        by removing edges having weight less than specified threshold
 
         g: Undirected graph
         threshold: real number from 0 to 1
     '''
-    return g.edge_subgraph( [ (u,v) for u,v,d in g.edges(data=True) if d['weight']>threshold])
+    mg = nx.Graph()
+    mg.add_nodes_from(g.nodes)
+    mg.add_weighted_edges_from((u,v,d['weight']) for u,v,d in g.edges(data=True) if d['weight']>threshold   )
+    return mg
 
 
-def build_MC():
+# def build_MC():
     pass
 
 def build_MIS():
-    '''
-    '''
-    nx.algorithms.maximal_independent_set(g)  
+    pass
+    # nx.algorithms.maximal_independent_set(g)
+
     #https://networkx.github.io/documentation/networkx-2.1/_modules/networkx/algorithms/approximation/independent_set.html  
