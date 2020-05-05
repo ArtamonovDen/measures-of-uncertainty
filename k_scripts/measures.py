@@ -31,7 +31,7 @@ def E_measure_MST(reference_network, sampler, sampler_params):
     '''
 
     Xs = list()
-    ref_mst = ns.build_MST(ref_network)
+    ref_mst = ns.build_MST(reference_network)
     N = ref_network.number_of_nodes() 
     for i in range(1000): # Calculate E[X] as mean of different Xs
         sample_network = ns.create_sample_network(sampler, sampler_params)    
