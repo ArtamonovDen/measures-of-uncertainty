@@ -27,16 +27,17 @@ def multivariate_t(means, Sigma, df, n):
 
 
 
-def mixed_t_normal(means, C, df, n, t_ratio = 0.3):
+def mixed_t_normal(means, C, Sigma, df, n, t_ratio = 0.3):
     '''
         Generate sample of mixed multivariate Student and Normal distributions in defined ratio
 
         means: the array of means of variables
-        C: covariance matrix
+        C: covariance matrix for normal distribution 
+        Sigma: matrix-parameter for t distribution
         df: degrees of freedom
         n: number of samples
         t_ration: the piece of samples generated from Student distribution. E.g. if t_ratio=0, each of n
-            samples is generated from Normal distribution, and, on the opposite, if t_ration=1 all sample
+            samples is generated from Normal distribution, and, on the opposite, if t_ratio=1 all sample
             is generated from Student distribution  
     '''
     n_student = round(n * t_ratio)
@@ -44,7 +45,7 @@ def mixed_t_normal(means, C, df, n, t_ratio = 0.3):
 
     N = C.shape[0] # the num of stocks
     x_normal = np.random.multivariate_normal(means, C, n_normal)
-    x_student = multivariate_t(means, C, df, n_student)
+    x_student = multivariate_t(means, Sigma, df, n_student)
 
     return np.concatenate([x_normal, x_student])
 
