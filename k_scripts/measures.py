@@ -23,7 +23,7 @@ def error_type_II(ref_struct, sample_struct):
     '''
     return difference(ref_struct, sample_struct).number_of_edges() # Edges presented in ref_struct but not presented in sample_struct
 
-def E_measure_MST(reference_network, sampler, sampler_params):
+def E_measure_MST(reference_network, sampler, sampler_params, sim_measure):
     '''
         Calculate E_measure for MST as E[X]
         For MST E_measure = R_measure, and # of errors of both types are equals.
@@ -34,7 +34,7 @@ def E_measure_MST(reference_network, sampler, sampler_params):
     ref_mst = ns.build_MST(reference_network)
     N = reference_network.number_of_nodes() 
     for i in range(1000): # Calculate E[X] as mean of different Xs
-        sample_network = ns.create_sample_network(sampler, sampler_params)    
+        sample_network = ns.create_sample_network(sampler, sampler_params, sim_measure)    
         Xs.append(
             X_error_rate_MST(ref_mst, ns.build_MST(sample_network), N)
             )
@@ -47,6 +47,9 @@ def X_error_rate_MST(ref_mst, sample_mst, N):
         For MST X = 1/(N-1)*error_type_I
     '''
     return error_type_I(ref_mst,sample_mst) / (N-1) # Edges presented in sample_mst but not in  ref_mst - I type error
+
+
+
 
 #-------------------------------------------------- Market Graph ----------------------------------------------------------------
 

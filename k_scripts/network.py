@@ -1,6 +1,8 @@
 
 import numpy as np
 import networkx as nx
+import pandas
+import k_scripts.utils as ku
 
 def create_network(W):
     '''
@@ -15,7 +17,7 @@ def create_network(W):
     return g
 
 
-def create_sample_network(sampler, sampler_params):
+def create_sample_network(sampler, sampler_params,method='pearson'):
     '''
         Create sample network from given distribution
         sampler: callable generator like np.random.multivariate_normal
@@ -28,7 +30,8 @@ def create_sample_network(sampler, sampler_params):
     '''
 
     n_sample = sampler(*sampler_params)
-    C = np.corrcoef(n_sample.T)
+    similarity_function = ku.get_corr_func(method)
+    C = similarity_function(n_sample)
     return create_network(C)
 
 
@@ -54,8 +57,14 @@ def build_MG(g,threshold):
     return mg
 
 
-# def build_MC():
-    pass
+def build_MC(g):
+    '''
+        Return list of nodes including in maximum clique of given graph
+    '''
+    cliques = list(nx.algorithms.clique.find_cliques(G))
+    cliques.sort(key = lambda c: len(c))
+    max_clique = cliques[-1]
+    return max_clique
 
 def build_MIS():
     pass
