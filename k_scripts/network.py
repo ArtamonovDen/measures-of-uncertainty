@@ -59,12 +59,24 @@ def build_MG(g,threshold):
 
 def build_MC(g):
     '''
-        Return list of nodes including in maximum clique of given graph
+        Return maximum by # of nodes clique subgragh. If there are several maximum clicques, 
+        the one returned has max weight
     '''
-    cliques = list(nx.algorithms.clique.find_cliques(G))
-    cliques.sort(key = lambda c: len(c))
-    max_clique = cliques[-1]
-    return max_clique
+    cliques = list(nx.algorithms.clique.find_cliques(g))
+    cliques.sort(key = lambda c: len(c)) 
+    max_clique_size = len(cliques[-1])
+    max_clique_t = (0,None)
+    for clique in cliques[::-1]:
+        if len(clique) < max_clique_size:
+            break
+        weight = g.subgraph(clique).size(weight='weight')
+        max_clique_t = max( 
+            (weight, g.subgraph(clique)),
+            max_clique_t,
+            key = lambda c: c[0] # compare by weight
+        )
+        
+    return max_clique_t[1]
 
 def build_MIS():
     pass
