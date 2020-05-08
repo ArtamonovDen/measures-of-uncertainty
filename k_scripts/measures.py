@@ -23,7 +23,7 @@ def error_type_II(ref_struct, sample_struct):
     '''
     return difference(ref_struct, sample_struct).number_of_edges() # Edges presented in ref_struct but not presented in sample_struct
 
-def E_measure_MST(reference_network, sampler, sampler_params, sim_measure):
+def E_measure_MST(reference_network, sampler, sampler_params, sim_measure='pearson'):
     '''
         Calculate E_measure for MST as E[X]
         For MST E_measure = R_measure, and # of errors of both types are equals.
@@ -33,7 +33,7 @@ def E_measure_MST(reference_network, sampler, sampler_params, sim_measure):
     Xs = list()
     ref_mst = ns.build_MST(reference_network)
     N = reference_network.number_of_nodes() 
-    for i in range(1000): # Calculate E[X] as mean of different Xs
+    for i in range(500): # Calculate E[X] as mean of different Xs
         sample_network = ns.create_sample_network(sampler, sampler_params, sim_measure)    
         Xs.append(
             X_error_rate_MST(ref_mst, ns.build_MST(sample_network), N)
@@ -65,7 +65,7 @@ def E_measure_MG(reference_network, threshold, sampler, sampler_params):
     M_compl = N*(N-1)/2 - M
     Xs = list()   
 
-    for i in range(1000): # Calculate E[X] as mean of different Xs
+    for i in range(500): # Calculate E[X] as mean of different Xs
         sample_network = ns.create_sample_network(sampler, sampler_params)    
         Xs.append(
             X_error_rate_MG(ref_mg, ns.build_MG(sample_network,threshold), M, M_compl)
