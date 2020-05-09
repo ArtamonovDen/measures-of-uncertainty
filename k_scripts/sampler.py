@@ -40,10 +40,9 @@ def mixed_t_normal(means, C, Sigma, df, n, t_ratio = 0.3):
             samples is generated from Normal distribution, and, on the opposite, if t_ratio=1 all sample
             is generated from Student distribution  
     '''
-    n_student = round(n * t_ratio)
+    n_student = int(round(n * t_ratio))
     n_normal = n - n_student
 
-    N = C.shape[0] # the num of stocks
     x_normal = np.random.multivariate_normal(means, C, n_normal)
     x_student = multivariate_t(means, Sigma, df, n_student)
 
