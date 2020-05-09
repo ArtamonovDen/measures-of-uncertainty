@@ -27,14 +27,14 @@ def get_corr_func(method):
             Cs[i,j] is sign correlation between x_i and x_j stock
 
         '''
-        N = X.shape[1]
-        Cs = np.eye(N)
-        for i in range(N-1):
+        obs_N, stock_N= X.shape
+        Cs = np.eye(stock_N)
+        for i in range(stock_N-1):
             i_signs = np.sign(X[:,i] * X[:,i+1:].T) # a with b..c, b with c..d and so on ...
             i_signs[i_signs<0]=0
-            Cs[i,i+1:] = i_signs.sum(axis=1)/(N)
-
-        i_lower = np.tril_indices(N, -1)
+            Cs[i,i+1:] = i_signs.sum(axis=1)/(obs_N)
+            
+        i_lower = np.tril_indices(stock_N, -1)
         Cs[i_lower] = Cs.T[i_lower] # fill in simetric elements under main diagonal
         return Cs
 
