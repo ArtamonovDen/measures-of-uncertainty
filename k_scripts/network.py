@@ -60,7 +60,9 @@ def build_MG(g,threshold):
 def build_MC(g):
     '''
         Return maximum by # of nodes clique subgragh. If there are several maximum clicques, 
-        the one returned has max weight
+        the one returned has max weight.
+        Returns (maximum clique graph with all nodes from g , number of nodes in clique.
+        To clear clique from extra nodes use clique.nodes[:N_clique_nodes]
     '''
     cliques = list(nx.algorithms.clique.find_cliques(g))
     cliques.sort(key = lambda c: len(c)) 
@@ -75,8 +77,9 @@ def build_MC(g):
             max_clique_t,
             key = lambda c: c[0] # compare by weight
         )
-        
-    return max_clique_t[1]
+    max_clique = max_clique_t[1].copy()
+    max_clique.add_nodes_from(g.nodes) # Add all nodes to make it possible to compare cliques
+    return max_clique, max_clique_t[1].number_of_nodes()    
 
 def build_MIS():
     pass
