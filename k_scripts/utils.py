@@ -41,3 +41,24 @@ def get_corr_func(method):
 
     _cor_methods = {"pearson": _pearson, "kendall": _kendall, "signs":_signs}
     return _cor_methods[method]
+
+
+# def draw_example:
+#     import networkx
+#     from networkx.algorithms.approximation import independent_set
+
+#     import matplotlib.pyplot as plt
+#     w = 4
+#     h = 3
+#     d = 70
+#     plt.figure(figsize=(w, h), dpi=d)
+#     G = networkx.Graph()
+#     H = networkx.path_graph(6)
+#     G.add_edges_from(H.edges())
+#     G.add_edges_from([(1, 3), (3, 5), (5, 0)])
+
+#     labels = [0, 1, 2, 3, 4, 5]
+#     networkx.draw_networkx(G, with_labels=labels)
+#     plt.axis ("off")
+#     plt.show()
+#     plt.savefig("out.png")

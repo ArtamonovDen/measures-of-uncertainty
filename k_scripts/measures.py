@@ -55,7 +55,7 @@ def X_error_rate_MST(ref_mst, sample_mst, N):
 
 #-------------------------------------------------- Market Graph ----------------------------------------------------------------
 
-def E_measure_MG(reference_network, threshold, sampler, sampler_params):
+def E_measure_MG(reference_network, threshold, sampler, sampler_params,sim_measure='pearson'):
     '''
         Calculate E_measure for MG as E[X]
         For MG E_measure = R_measure
@@ -68,7 +68,7 @@ def E_measure_MG(reference_network, threshold, sampler, sampler_params):
     Xs = list()   
 
     for i in range(500): # Calculate E[X] as mean of different Xs
-        sample_network = ns.create_sample_network(sampler, sampler_params)    
+        sample_network = ns.create_sample_network(sampler, sampler_params,sim_measure='pearson')    
         Xs.append(
             X_error_rate_MG(ref_mg, ns.build_MG(sample_network,threshold), M, M_compl)
             )
