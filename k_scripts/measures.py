@@ -68,7 +68,7 @@ def E_measure_MG(reference_network, threshold, sampler, sampler_params,sim_measu
     Xs = list()   
 
     for i in range(500): # Calculate E[X] as mean of different Xs
-        sample_network = ns.create_sample_network(sampler, sampler_params,sim_measure='pearson')    
+        sample_network = ns.create_sample_network(sampler, sampler_params, sim_measure)    
         Xs.append(
             X_error_rate_MG(ref_mg, ns.build_MG(sample_network,threshold), M, M_compl)
             )
@@ -91,7 +91,7 @@ def X_error_rate_MG(ref_mg, sample_mg, M, M_compl):
 
 #-------------------------------------------------- Maximum Clique ----------------------------------------------------------------
 
-def E_measure_MC(ref_clique, N_ref, threshold, sampler, sampler_params):
+def E_measure_MC(ref_clique, N_ref, threshold, sampler, sampler_params,sim_measure='pearson'):
     '''
         Calculate E-measure for Maximum Clique structure. 
         Returns tuple means of errors: (Fraction of errors of type I, Fraction of errors of type II, Total Fraction of errors)
@@ -104,7 +104,7 @@ def E_measure_MC(ref_clique, N_ref, threshold, sampler, sampler_params):
     Xs = list()   
 
     for i in range(500): # Calculate E[X] as mean of different Xs
-        sample_network = ns.create_sample_network(sampler, sampler_params)    
+        sample_network = ns.create_sample_network(sampler, sampler_params, sim_measure)    
         smpl_clique, N_smpl = ns.build_MC(ns.build_MG(sample_network,threshold))
         Xs.append(
             X_totoal_MC(ref_clique, smpl_clique, M2)
@@ -137,3 +137,68 @@ def X_type_II_MC(ref_clique, smpl_clique, M2):
         and M2 = C(2|Cl_ref), Cl_ref - # of all possible edges in ref-structure clique. M2 is a constant
     '''
     return error_type_II(ref_clique, smpl_clique) / M2
+
+
+#-------------------------------------------------- Maximum Independent Set ----------------------------------------------------------------
+
+def E_measure_MIS(ref_comp_clique, N_ref_comp, threshold, sampler, sampler_params, sim_measure='pearson'):
+    '''
+        Calculate E-measure for Maximum Independent Set as Maximum Clique of complement graph.
+        Note, that function gets clique from complement reference market graph. So, erros are calculated with MC functions
+    '''
+
+    M2 = len(ref_comp_clique.edges) # as clique is complete graph
+    Xs = list()   
+
+    for i in range(500): # Calculate E[X] as mean of different Xs
+        sample_net = ns.create_sample_network(sampler, sampler_params, sim_measure)
+        sample_mg = ns.build_MG(sample_net, threshold)
+        complement_sample_mg= ns.create_complement_graph(sample_mg, sample_net)
+        sample_comp_clique, _ =ns.build_MC(complement_sample_mg, find_min=True)
+        Xs.append(
+            X_totoal_MC(ref_comp_clique, sample_comp_clique, M2)
+        )
+    return np.mean(Xs, axis=0)
+
+#-------------------------------------------------- Market Graph Mix ----------------------------------------------------------------  
+
+def E_measure_MG_and_MC_and_MIS(reference_network, threshold, sampler, sampler_params,sim_measure='pearson'):
+    '''
+        Calculate E-measure for MG, MC and MIS at one time for one generated sample network
+    '''
+
+    # Create needed structures
+    ref_mg = ns.build_MG(reference_network,threshold)
+    ref_clique, _ = ns.build_MC(ref_mg)
+    complement_ref_mg= ns.create_complement_graph(ref_mg,reference_network)
+    ref_comp_clique, _ = ns.build_MC(complement_ref_mg, find_min=True)
+
+    # MG parameters
+    M = ref_mg.number_of_edges()
+    N = ref_mg.number_of_nodes()
+    M_compl = N*(N-1)/2 - M
+
+    # MC parameters
+    M2_mc = len(ref_clique.edges) # as clique is complete graph
+
+    # MIS parameters
+    M2_mis = len(ref_comp_clique.edges) # as clique is complete graph
+
+    Xs = list()   
+
+    for i in range(500): # Calculate E[X] as mean of different Xs
+        sample_network = ns.create_sample_network(sampler, sampler_params, sim_measure)
+        sample_mg = ns.build_MG(sample_network,threshold)
+        complement_sample_mg= ns.create_complement_graph(sample_mg, sample_network)
+        sample_clique, _ = ns.build_MC(sample_mg)
+        sample_comp_clique, _ =ns.build_MC(complement_sample_mg, find_min=True)
+
+        Xs.append([
+            X_error_rate_MG(ref_mg, sample_mg , M, M_compl),       
+            *X_totoal_MC(ref_clique, sample_clique, M2_mc),
+            *X_totoal_MC(ref_comp_clique, sample_comp_clique, M2_mis)
+        ])
+
+    # Xs contains list of list: [MG_total, MC_I, MC_II, MC_total, MIS_I, MIS_II, MIS_total]
+    # get mean over each metric
+    return np.mean(Xs,axis=0)
