@@ -101,8 +101,3 @@ def build_MC(g, find_min = False):
     max_clique = max_clique_t[1].copy()
     max_clique.add_nodes_from(g.nodes) # Add all nodes to make it possible to compare cliques
     return max_clique, max_clique_t[1].number_of_nodes()    
-
-    
-
-
-    
