@@ -34,6 +34,15 @@ def create_sample_network(sampler, sampler_params,method='pearson'):
     C = similarity_function(n_sample)
     return create_network(C)
 
+def create_complement_graph(g, complete_g):
+    '''
+        Create graph complement to g, where complete_g = g + complement_g
+    '''
+    complement_g= nx.algorithms.operators.unary.complement(g)
+    complement_g.add_weighted_edges_from( # add weights to complement_g
+        (u,v,d['weight']) for u,v,d in complete_g.edges(data=True) if complement_g.has_edge(u,v)
+    )
+    return complement_g
 
 def build_MST(g):
     '''
@@ -53,26 +62,35 @@ def build_MG(g,threshold):
     '''
     mg = nx.Graph()
     mg.add_nodes_from(g.nodes)
-    mg.add_weighted_edges_from((u,v,d['weight']) for u,v,d in g.edges(data=True) if d['weight']>threshold   )
+    mg.add_weighted_edges_from((u,v,d['weight']) for u,v,d in g.edges(data=True) if d['weight']>=threshold   )
     return mg
 
 
-def build_MC(g):
+def build_MC(g, find_min = False):
     '''
         Return maximum by # of nodes clique subgragh. If there are several maximum clicques, 
         the one returned has max weight.
         Returns (maximum clique graph with all nodes from g , number of nodes in clique.
         To clear clique from extra nodes use clique.nodes[:N_clique_nodes]
+
+        If find_min = True - maximal clique if minimal weights returned
     '''
     cliques = list(nx.algorithms.clique.find_cliques(g))
     cliques.sort(key = lambda c: len(c)) 
     max_clique_size = len(cliques[-1])
-    max_clique_t = (0,None)
+    max_clique_t = (0,None) # (weight, nx.Graph)
+
+    # Tune choser to chose clique of maximun orminimum weight
+    if find_min:
+        choser = min
+    else:
+        choser = max
+
     for clique in cliques[::-1]:
         if len(clique) < max_clique_size:
             break
         weight = g.subgraph(clique).size(weight='weight')
-        max_clique_t = max( 
+        max_clique_t = choser( 
             (weight, g.subgraph(clique)),
             max_clique_t,
             key = lambda c: c[0] # compare by weight
@@ -81,8 +99,20 @@ def build_MC(g):
     max_clique.add_nodes_from(g.nodes) # Add all nodes to make it possible to compare cliques
     return max_clique, max_clique_t[1].number_of_nodes()    
 
-def build_MIS():
-    pass
-    # nx.algorithms.maximal_independent_set(g)
+def build_MIS(g):
+    '''
+        Returns  Maximum Independent Set with minimal weights of corresponding edges in market graph
+        MIS is a clique in complement graph
+    '''
+    complement_g = nx.algorithms.operators.unary.complement(g)
+    clique,N = build_MC(complement_g, find_min=True)
 
-    #https://networkx.github.io/documentation/networkx-2.1/_modules/networkx/algorithms/approximation/independent_set.html  
+    se = set(complement_G.edges)
+    complement_G.add_weighted_edges_from(
+    (u,v,d['weight']) for u,v,d in G.edges(data=True) if (u,v) in se # complement net with weights
+    )
+    cl, n =ns.build_MC(complement_G, find_min=True) # first n elements is MIS
+    
+
+
+    
