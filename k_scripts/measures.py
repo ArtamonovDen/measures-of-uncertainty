@@ -91,7 +91,7 @@ def X_error_rate_MG(ref_mg, sample_mg, M, M_compl):
 
 #-------------------------------------------------- Maximum Clique ----------------------------------------------------------------
 
-def E_measure_MC(ref_clique, N_ref, threshold, sampler, sampler_params,sim_measure='pearson'):
+def E_measure_MC(ref_clique, threshold, sampler, sampler_params,sim_measure='pearson'):
     '''
         Calculate E-measure for Maximum Clique structure. 
         Returns tuple means of errors: (Fraction of errors of type I, Fraction of errors of type II, Total Fraction of errors)
@@ -99,8 +99,7 @@ def E_measure_MC(ref_clique, N_ref, threshold, sampler, sampler_params,sim_measu
         N_ref - number of nodes in clique
     '''
 
-    M2 = N_ref * (N_ref-1)/2
-    assert int(M2) == len(ref_clique.edges) # should be equeal as it's a clique
+    M2 =len(ref_clique.edges) # should be equeal as it's a clique to  N_ref * (N_ref-1)/2
     Xs = list()   
 
     for i in range(500): # Calculate E[X] as mean of different Xs
@@ -141,7 +140,7 @@ def X_type_II_MC(ref_clique, smpl_clique, M2):
 
 #-------------------------------------------------- Maximum Independent Set ----------------------------------------------------------------
 
-def E_measure_MIS(ref_comp_clique, N_ref_comp, threshold, sampler, sampler_params, sim_measure='pearson'):
+def E_measure_MIS(ref_comp_clique, threshold, sampler, sampler_params, sim_measure='pearson'):
     '''
         Calculate E-measure for Maximum Independent Set as Maximum Clique of complement graph.
         Note, that function gets clique from complement reference market graph. So, erros are calculated with MC functions
