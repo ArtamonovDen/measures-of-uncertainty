@@ -84,10 +84,10 @@ def build_MC(g, find_min = False):
     # Tune choser to find clique of maximun or minimum weight
     if find_min:
         choser = min
-        max_clique_t = 1000000.0# (max possible weight of subgraph, nx.Graph)
+        max_clique_t = (1000000.0,None)# (max possible weight of subgraph, nx.Graph)
     else:
         choser = max
-        max_clique_t = -1000000.0 # (min possible weight of subgraph, nx.Graph)
+        max_clique_t = (-1000000.0,None) # (min possible weight of subgraph, nx.Graph)
 
     for clique in cliques[::-1]:
         if len(clique) < max_clique_size:
