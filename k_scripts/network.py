@@ -78,13 +78,16 @@ def build_MC(g, find_min = False):
     cliques = list(nx.algorithms.clique.find_cliques(g))
     cliques.sort(key = lambda c: len(c)) 
     max_clique_size = len(cliques[-1])
-    max_clique_t = (0,None) # (weight, nx.Graph)
+    weights = [d['weight'] for u,v,d in g.edges(data=True)]
+    M = g.number_of_edges()
 
-    # Tune choser to chose clique of maximun orminimum weight
+    # Tune choser to find clique of maximun or minimum weight
     if find_min:
         choser = min
+        max_clique_t = (max(weights) * M, None) # (max possible weight of subgraph, nx.Graph)
     else:
         choser = max
+        max_clique_t = (min(weights) * M, None) # (min possible weight of subgraph, nx.Graph)
 
     for clique in cliques[::-1]:
         if len(clique) < max_clique_size:
