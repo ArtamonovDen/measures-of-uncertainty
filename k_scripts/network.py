@@ -102,19 +102,6 @@ def build_MC(g, find_min = False):
     max_clique.add_nodes_from(g.nodes) # Add all nodes to make it possible to compare cliques
     return max_clique, max_clique_t[1].number_of_nodes()    
 
-def build_MIS(g):
-    '''
-        Returns  Maximum Independent Set with minimal weights of corresponding edges in market graph
-        MIS is a clique in complement graph
-    '''
-    complement_g = nx.algorithms.operators.unary.complement(g)
-    clique,N = build_MC(complement_g, find_min=True)
-
-    se = set(complement_G.edges)
-    complement_G.add_weighted_edges_from(
-    (u,v,d['weight']) for u,v,d in G.edges(data=True) if (u,v) in se # complement net with weights
-    )
-    cl, n =ns.build_MC(complement_G, find_min=True) # first n elements is MIS
     
 
 
