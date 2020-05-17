@@ -1,3 +1,4 @@
+from math import pi, asin
 import numpy as np
 from networkx.algorithms.operators import difference
 import k_scripts.network as ns
@@ -67,6 +68,9 @@ def E_measure_MG(reference_network, threshold, sampler, sampler_params,sim_measu
     M_compl = N*(N-1)/2 - M
     Xs = list()   
 
+    if sim_measure == 'signs':
+        threshold = 0.5 * ((2/pi) * asin(threshold) + 1)
+
     for i in range(500): # Calculate E[X] as mean of different Xs
         sample_network = ns.create_sample_network(sampler, sampler_params, sim_measure)    
         Xs.append(
@@ -101,6 +105,9 @@ def E_measure_MC(ref_clique, threshold, sampler, sampler_params,sim_measure='pea
 
     M2 =len(ref_clique.edges) # should be equeal as it's a clique to  N_ref * (N_ref-1)/2
     Xs = list()   
+
+    if sim_measure == 'signs':
+        threshold = 0.5 * ((2/pi) * asin(threshold) + 1)
 
     for i in range(500): # Calculate E[X] as mean of different Xs
         sample_network = ns.create_sample_network(sampler, sampler_params, sim_measure)    
@@ -148,6 +155,8 @@ def E_measure_MIS(ref_comp_clique, threshold, sampler, sampler_params, sim_measu
 
     M2 = len(ref_comp_clique.edges) # as clique is complete graph
     Xs = list()   
+    if sim_measure == 'signs':
+        threshold = 0.5 * ((2/pi) * asin(threshold) + 1)
 
     for i in range(500): # Calculate E[X] as mean of different Xs
         sample_net = ns.create_sample_network(sampler, sampler_params, sim_measure)
@@ -184,6 +193,9 @@ def E_measure_MG_and_MC_and_MIS(reference_network, threshold, sampler, sampler_p
     M2_mis = len(ref_comp_clique.edges) # as clique is complete graph
 
     Xs = list()   
+
+    if sim_measure == 'signs':
+        threshold = 0.5 * ((2/pi) * asin(threshold) + 1)
 
     for i in range(500): # Calculate E[X] as mean of different Xs
         sample_network = ns.create_sample_network(sampler, sampler_params, sim_measure)
