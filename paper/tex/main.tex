@@ -1,18 +1,34 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[russian]{babel}
+\usepackage[english, russian]{babel}
 \usepackage[OT1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{kbordermatrix}
+\usepackage{indentfirst} % Красная строка
+\usepackage[14pt]{extsizes} 
+
+\usepackage{graphicx} %package to manage images
+\usepackage{float}
+\graphicspath{{./images/example/}{./images/experiments/}}
+
+\linespread{1.5} % 1.5 интервал
+
 \author{Артамонов Денис}
 \title{Курсач}
+
+
+
 \begin{document}
 \tableofcontents
 \newpage
+
 \input{intro}
-\input{measures}
-\input{example}
+\input{network_analysis}
+%\input{measures}
+\input{experiments}
+
+
 \end{document}
 
