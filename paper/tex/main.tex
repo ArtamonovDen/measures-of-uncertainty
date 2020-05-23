@@ -9,8 +9,12 @@
 \usepackage{indentfirst} % Красная строка
 \usepackage[14pt]{extsizes} 
 
+
+
 \usepackage{graphicx} %package to manage images
 \usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
 \graphicspath{{./images/example/}{./images/experiments/}}
 
 \linespread{1.5} % 1.5 интервал
@@ -19,15 +23,16 @@
 \title{Курсач}
 
 
-
 \begin{document}
 \tableofcontents
 \newpage
 
 \input{intro}
 \input{network_analysis}
-%\input{measures}
+\input{measures}
 \input{experiments}
+\input{conclusion}
+
 
 
 \end{document}

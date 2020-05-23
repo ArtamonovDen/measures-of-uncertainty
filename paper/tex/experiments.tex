@@ -158,19 +158,365 @@ X = \frac{1}{2}\left(\frac{X_1}{M_1} + \frac{X_2}{M_2}\right) = \frac{1}{2}\left
 
 Для каждой из структур будем применять две меры неопределённости: корреляция Пирсона и вероятность совпадения знаков.
 
-Для корреляции Пирсона основным экспериментом будет измерение доли общей ошибки в зависимости от числа наблюдений $n$ для различых параметром $r$. Таким образом, мы сможем изучить, как влияет на статистическую неопределённость отклонения от нормального распределения. 
+Для корреляции Пирсона основным экспериментом будет измерение общей доли  ошибки в зависимости от числа наблюдений $n$ для различых параметром $r$. Таким образом, мы сможем изучить, как влияет на статистическую неопределённость отклонения от нормального распределения. Мы увидим, что чем ближе значения параметра $r$ к единице, то есть чем больше отклонение, тем больше общая доля ошибок для каждой из структур.
 
-Для вероятности совпадения знаков мы рассмотрим зависимость доли общей ошибки от параметра $r$ для различных значений параметра $r$ для различных значений числа наблюдений $n$. Так мы изучим влияние отклонения от нормального распределения на статистическую неопределённость структуры, построенной на вероятности совпадения знаков. Мы увидим, что подобного отклонения практически нет для любой из выбранных структур. Кроме того, мы сможем исследовать величину общей доли ошибки в зависимости от выбранной меры близости для выбранного значений $n$.
+Для вероятности совпадения знаков мы рассмотрим зависимость  общей доли ошибки от параметра $r$ для различных значений параметра $r$ для различных значений числа наблюдений $n$. Так мы изучим влияние отклонения от нормального распределения на статистическую неопределённость структуры, построенной на вероятности совпадения знаков. Мы увидим, что подобного отклонения практически нет для любой из выбранных структур. Кроме того, мы сможем исследовать величину общей доли ошибки в зависимости от выбранной меры близости для выбранного значений $n$.
 
-Для максимальной клики и максимального независимого множества помимо общей доли ошибки, будут также представлены доли ошибок I и II рода.
+Доли ошибок для корреляции знаков мы сравним с ошибками для корреляции Пирсона при $r=1$ и $r=0$ как для случаев с наибольшей и наименьшей ошибками соответственно. Мы будем сравнивать с единственным значением ошибки для знаков, так как при изменении $r$ значение общей доли ошиюки будет оставаться практически неизменной. Для максимальной клики и максимального независимого множества помимо общей доли ошибки, будут также представлены доли ошибок I и II рода.
 
 \subsubsection{Максимальное остовное дерево}
 
-На рисунке \ref{exp:mst_10k_p} представлена
+На рисунке \ref{fig:exp/mst/10k} представлен график зависимости общей доли ошибки от числа наблюдений для различных $r$. При $r=0$, то есть при генерации только из нормального распределения, порог $\mathcal{E}_0=0.1$ достигается примерно при $n=4000$ наблюдений, далее ошибка продолжает медленно убывать. В работе (ссылка) порог достигался при более чем 10000 набледедий.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{mst/mst10k}
+\caption{Зависимость общей доли ошибок от $n$, MST}
+\label{fig:exp/mst/10k}
+\end{figure}
+
+На рисунке \ref{fig:exp/mst/pearson_ratio} представлен график зависимости общей доли ошибки от параметра $r$ при различных $n$. Уже при $r>0.1$ числа наблюдений $n=10000$ не хватает, чтобы достичь порога $\mathcal{E}_0=0.1$. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{mst/mst_pearson_ratio}
+\caption{Зависимость общей доли ошибок от $r$, MST}
+\label{fig:exp/mst/pearson_ratio}
+\end{figure}
+
+Теперь рассмотрим вероятность совпадения знаков в качестве меры близости. На рисунке \ref{fig:exp/mst/mst_signs_ration} представлен график зависимости общей доли ошибки от параметра $r$ при различных $n$. Видно, что изменения в распределении практически никак не влияют на значение ошибки. Однако  достичь порога $\mathcal{E}_0=0.1$ не получается даже при  $n=10000$. Судя по графику, значение общей доли ошибок стремится к 0.5 при увеличении числа наблюдений $n$. Подобная зависимость общей доли ошибки от параметра $r$ будет наблюдаться и для остальных структур, из чего мы сможем сделать вывод, что вероятность совпадения знаков устойчива к отклонениям наблюдений от нормального распределения подобного рода.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{mst/mst_signs_ration}
+\caption{Зависимость общей доли ошибок от $r$ для знаков, MST}
+\label{fig:exp/mst/mst_signs_ration}
+\end{figure}
+
+На слудеющем рисунке \ref{fig:exp/mst/pearson_signs} представлены графики сравнения неопределённости при использовании коррелиции Пирсона и вероятности выпадения знаков. Слева изображён график зависимости общей доли ошибки от параметра $r$ при различных $n$ для корреляции Пирсона и корреляции вероятности совпадения знаков. Справа - график, показывающий значения ошибки для корреляции Пирсона при $r=0$ и $r=1$ и для вероятности совпадения знаков, общая доля ошибок для которой сохраняется при изменении $r$. Видно, что даже при $r=1$, структура на основе корреляции Пирсона более стабильна.
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mst/mst10k_s_p}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mst/person_signs}
+     \end{subfigure}
+     
+
+        \caption{Зависимость общей доли ошибок от $n$, MST}
+        \label{fig:exp/mst/pearson_signs}
+\end{figure}  
 
 
 \subsubsection{Рыночный граф}
+В отличие от максимального остовного дерева рыночный граф имеет дополнительный параметр: порог $\theta$. Мы рассмотрим несколько значений порга $\theta$: $\theta \in [0.1, 0.3, 0.5, 0.7]$. Каждый график будет соответствовать своему значению $\theta$.
+
+На рисунке \ref{fig:exp/mg/5k} представлен график зависимости общей доли ошибки от числа наблюдений для различных $r$ при различных значениях порога $\theta$. В отличие от максимального остовного дерева, уровень $\mathcal{E}_0=0.1$ достигается при гораздо меньшем числе наблюдений. При пороге выше $\theta=0.5$ уровень $\mathcal{E}_0=0.1$ достигается для любого значения $r$.
+
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/pearson_5k_t=0-1}
+         \caption{$\theta=0.1$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/pearson_5k_t=0-3}
+         \caption{$\theta=0.3$}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/pearson_5k_t=0-5}
+         \caption{$\theta=0.5$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/pearson_5k_t=0-7}
+         \caption{$\theta=0.7$}
+     \end{subfigure}
+     
+
+        \caption{Зависимость общей доли ошибок от $n$, MG}
+        \label{fig:exp/mg/5k}
+\end{figure}  
+
+
+Для меры близости на основе вероятности совпадения знаков на рисунке \ref{fig:exp/mg/signs_ration} представлен график зависимости общей доли ошибки от параметра $r$ при различных $n$. Как и для минимального остовного дерева, изменения в распределении также практически никак не влияют на значение ошибок. Достичь порога $\mathcal{E}_0=0.1$  всё также не удаётся, хотя общая доля ошибка меньше: около $\mathcal{E}=0.2$ для всех рассмотренных значений порога $\theta$. Согласно условию (\ref{eq:threshold}) при работе со знаками, мы преобразуем порог $\theta$ в $\theta_\gamma$. Значения $\theta_\gamma$ также представлено.
+
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/signs_ratio_t=0-1}
+         \caption{$\theta=0.1, \theta_\gamma=0.53$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/signs_ratio_t=0-3}
+         \caption{$\theta=0.3, \theta_\gamma=0.6$}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/signs_ratio_t=0-5}
+         \caption{$\theta=0.5, \theta_\gamma=0.67$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/signs_ratio_t=0-7}
+         \caption{$\theta=0.7,\theta_\gamma=0.75s$}
+     \end{subfigure}
+     
+
+        \caption{Зависимость общей доли ошибок от $r$ для знаков, MG}
+        \label{fig:exp/mg/signs_ration}
+\end{figure}  
+
+
+На слудеющем рисунке \ref{fig:exp/mg/pearson_signs} представлены график сравнения ошибок при использовании корреляции Пирсона и корреляции вероятности совпадения знаков. Заметим, что при маленьких значениях $\theta$ ошибки для корреляции Пирсона при $r=1$ и корреляции знаков практически идентичны при разных $n$, однако при увеличии порого $\theta$ значения ошибки для корреляции Пирсона становится меньше. Это может быть вызвано преобразованием порога, либо тем, что знаки показывают себя лучше при использовании с маленьким $\theta$, то есть при большом количстве рёбер в сети.
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/person_signs_t=0-1}
+         \caption{$\theta=0.1, \theta_\gamma=0.53$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/person_signs_t=0-3}
+         \caption{$\theta=0.3, \theta_\gamma=0.6$}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/person_signs_t=0-5}
+         \caption{$\theta=0.5, \theta_\gamma=0.67$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mg/person_signs_t=0-7}
+         \caption{$\theta=0.7,\theta_\gamma=0.75$}
+     \end{subfigure}
+     
+
+        \caption{Сравнение ошибки для обеих мер, MG}
+        \label{fig:exp/mg/pearson_signs}
+\end{figure}  
+
+
 \subsubsection{Максимальная клика}
+Максимальная клика и максимальное назависимое множество строятся на основе рыночного графа.  Порог $\theta$ для максимальной клики будем брать из множества $\theta \in [0.1, 0.3, 0.5, 0.7]$.
+
+На рисунке \ref{fig:exp/mc/total_1k} изображены графики зависимости общей доли ошибок от количества наблюдений $n$ для различных значений порога и, соответственно, для различных размеров клики.  Значение  общей доли ошибок остаётся достаточно большим, в сравнении со значениями ошибки в рыночном графе. Оно варьируется он $\mathcal{E}=0.2$ до  $\mathcal{E}=0.4$ в зависимости от значения $r$. При большом и маленьком порогах $\theta=0.7$ и $\theta=0.1$ значения ошибок меньше, чем при средних $\theta=0.3$ и $\theta=0.5$. При $\theta=0.7$ и $\theta=0.1$ достигается значение порога $\mathcal{E}_0=0.1$
+
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/pearson_total_1k_t=0-1}
+         \caption{$\theta=0.1, N=64$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/pearson_total_1k_t=0-3}
+         \caption{$\theta=0.3, N=24$}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/pearson_total_1k_t=0-5}
+         \caption{$\theta=0.5, N=10$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/pearson_total_1k_t=0-7}
+         \caption{$\theta=0.7, N=3$}
+     \end{subfigure}
+    
+        \caption{Зависимость общей доли ошибок от $n$,  MC}
+        \label{fig:exp/mc/total_1k}
+\end{figure}  
+
+Для меры близости на основе вероятности совпадения знаков на рисунке на рисунке \ref{fig:exp/mc/signs_ratio_total} представлен график зависимости общей доли ошибки от параметра $r$ при различных $n$. Также как и для корреляции Пирсона, ошибка больше при средних значениях порога $\theta$.
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/signs_total_ratio_t=0-1}
+         \caption{$\theta=0.1, \theta_\gamma=0.53, N=55$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/signs_total_ratio_t=0-3}
+         \caption{$\theta=0.3, \theta_\gamma=0.6, N=25$}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/signs_total_ratio_t=0-5}
+         \caption{$\theta=0.5, \theta_\gamma=0.67, N=10$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/signs_total_ratio_t=0-7}
+         \caption{$\theta=0.7,\theta_\gamma=0.75, N=4$}
+     \end{subfigure}
+
+        \caption{Зависимость общей доли ошибок от $r$ для знаков, MC}
+        \label{fig:exp/mc/signs_ratio_total}
+\end{figure}  
+
+На графике \ref{fig:exp/mc/pearson_signs} сравниваются значения ошибок при использовании корреляции Пирсона и корреляции вероятности совпадения знаков. Заметим, что для значений $100<n<1000$ ошибка для корреляции Пирсона и $r=1$ равна примерно равна или даже превосходит ошибку при использовании вероятностей совпадения знаков. 
+
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/person_signs_t=0-1}
+         \caption{$\theta=0.1, \theta_\gamma=0.53$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/person_signs_t=0-3}
+         \caption{$\theta=0.3, \theta_\gamma=0.6$}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/person_signs_t=0-5}
+         \caption{$\theta=0.5, \theta_\gamma=0.67$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mc/total/person_signs_t=0-7}
+         \caption{$\theta=0.7,\theta_\gamma=0.75$}
+     \end{subfigure}
+
+        \caption{Сравнение ошибки для обеих мер, MC}
+        \label{fig:exp/mc/pearson_signs}
+\end{figure}  
+
+
 \subsubsection{Максимальное независимое множество}
+
+По аналогии с максимальной кликой, мы будем рассматривать значения общей доли ошибок для разных порогов. Пороги для максимальное независимое множества будут иными: $\theta \in [0, 0.05, 0.1, 0.15]$. 
+
+На рисунке \ref{fig:exp/mis/total_1k} изображены графики зависимость общей доли ошибки от количества наблюдений $n$ для различных значений порога. Небольшое увеличение порога приводит к существенному уменьшению ошибки.  С ростом числа наблюдений ошибка уменьшается существенно медленне, чем у рассмотренной выше максимальной клики, и не достагает порога $\mathcal{E}_0=0.1$
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/pearson_total_1k_t=0}
+         \caption{$\theta=0, N=5$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/pearson_total_1k_t=0-05}
+         \caption{$\theta=0.05, N=8$}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/pearson_total_1k_t=0-1}
+         \caption{$\theta=0.1, N=14$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/pearson_total_1k_t=0-15}
+         \caption{$\theta=0.15, N=21$}
+     \end{subfigure}
+    
+        \caption{Зависимость общей доли ошибок от $n$,  MIS}
+        \label{fig:exp/mis/total_1k}
+\end{figure}  
+
+
+На следующем графике \ref{fig:exp/mis/signs_ratio} представлена зависимость общей доли ошибок от параметра $r$ с вероятностю совпадения знаков в качестве меры близости. Наблюдается схожая с корреляцией Пирсона тенденция с существенном уменьшение ошибки при небольшом увеличении $\theta$. 
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/signs_total_ratio_t=0-05}
+         \caption{$\theta=0.05, \theta_\gamma=0.51, N=17$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/signs_total_ratio_t=0-1}
+         \caption{$\theta=0.1, \theta_\gamma=0.53, N=18$}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/signs_total_ratio_t=0-15}
+         \caption{$\theta=0.15, \theta_\gamma=0.55, N=23$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/signs_total_ratio_t=0-2}
+         \caption{$\theta=0.2, \theta_\gamma=0.56, N=29$}
+     \end{subfigure}
+    
+        \caption{Зависимость общей доли ошибок от $n$,  MIS}
+        \label{fig:exp/mis/signs_ratio}
+\end{figure}  
+
+Сравнение ошибок для обеих мер представлено на график \ref{fig:exp/mis/pearson_signs}. Видно, мера вероятности совпадения знаков проявляет себя немного лучше, чем мера корреляции Пирсона.
+
+\begin{figure}[H]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/person_signs_t=0-05}
+         \caption{$\theta=0.05, \theta_\gamma=0.51$}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/person_signs_t=0-1}
+         \caption{$\theta=0.1, \theta_\gamma=0.53$}
+     \end{subfigure}
+     \vfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{mis/total/person_signs_t=0-15}
+         \caption{$\theta=0.15, \theta_\gamma=0.55$}
+     \end{subfigure}
+
+    
+        \caption{Сравнение ошибки для обеих мер,  MIS}
+        \label{fig:exp/mis/pearson_signs}
+\end{figure}  
+
 
 
