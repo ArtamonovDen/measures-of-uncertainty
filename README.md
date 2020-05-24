@@ -2,7 +2,7 @@
 
 ## Abstarct(En)
 
-The presented paper goals to stydy statistical uncertainty of different network structures used for market network analysis. Statistical uncertainty of structures having sample sign coincidence probability as similarity measure will be investigated experimentally. Besides, We will study the change in the value of statistical uncertainty for various deviations of the distribution of stock returns from the normal distribution.
+The presented paper goals to study statistical uncertainty of different network structures used for market network analysis. Statistical uncertainty of structures having sample sign coincidence probability as similarity measure will be investigated experimentally. Besides, We will study the change in the value of statistical uncertainty for various deviations of the distribution of stock returns from the normal distribution.
 
 ## Abstarct(Rus)
 
