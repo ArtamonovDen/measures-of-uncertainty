@@ -1,15 +1,9 @@
-# measures-of-uncertainty
+# Graduation qualification work: Investigation of the Statistical Uncertainty of Sign Procedures for Construction Network Structures and Characteristics of Stock Market
 
-## Experiments
+## Abstarct(En)
 
-1. MST
-    1. pearson
-      * 10k: error rate for 0..10000 samples with different ratios of t-distriburion in mixed distribution
-      * mixed ratio: for specified N count error rate for different ratios of t-distribution
-    2. signs
-      * 5k: for r =0, 0.5, 1; for 0.5000
-      * mixed ratio: N=100,1000,3000,5000,10000 for r=0..1 with step 0.1
-      
-1. MG
-    1. pearson
-      * 5k experiments for threshold in (0.1, 0.3, 0.5, 0.7) for ratios is (0,0.3,0.5,0.7,1)
+The presented paper goals to stydy statistical uncertainty of different network structures used for market network analysis. Statistical uncertainty of structures having sample sign coincidence probability as similarity measure will be investigated experimentally. Besides, We will study the change in the value of statistical uncertainty for various deviations of the distribution of stock returns from the normal distribution.
+
+## Abstarct(Rus)
+
+Целью данной работы является изучение статистической неопределённости различных сетевых структур, которые используются в сетевом анализе рынка. Экспериментальным путём будет исследована статистическая неопределённость структур, у которых в качестве меры близости, задающей веса в сети, будет использована выборочная вероятность совпадения знаков. Также будет изучено изменение значения статистической неопределённости при различных отклонениях распределения доходностей акций от нормального распределения.
