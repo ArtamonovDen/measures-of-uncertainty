@@ -9,7 +9,8 @@
 \usepackage{indentfirst} % Красная строка
 \usepackage[14pt]{extsizes} 
 
-
+\usepackage[sorting=anyt]{biblatex}
+\addbibresource{references.bib}
 
 \usepackage{graphicx} %package to manage images
 \usepackage{float}
@@ -26,14 +27,12 @@
 \begin{document}
 \tableofcontents
 \newpage
-
 \input{intro}
 \input{network_analysis}
 \input{measures}
 \input{experiments}
 \input{conclusion}
-
-
+\printbibliography
 
 \end{document}
 
